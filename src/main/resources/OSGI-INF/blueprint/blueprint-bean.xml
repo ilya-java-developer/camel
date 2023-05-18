@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+       xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+         http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+  <cm:property-placeholder persistent-id="HelloBean" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="jms.url" value="tcp://localhost:61616"/>
+      <cm:property name="jms.username" value="admin"/>
+      <cm:property name="jms.password" value="admin"/>
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+<!-- ==================== Настройка jms фабрики для подключения к artemis =========================================  -->
+  <bean id="artemisConnectionFactory" class="org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory">
+    <argument index="0" value="${jms.url}"/>
+    <argument index="1" value="${jms.username}"/>
+    <argument index="2" value="${jms.password}"/>
+  </bean>
+
+  <bean id="pooledConnectionFactory" class="org.messaginghub.pooled.jms.JmsPoolConnectionFactory"
+        init-method="start" destroy-method="stop">
+    <property name="maxConnections" value="10"/>
+    <property name="maxSessionsPerConnection" value="500"/>
+    <property name="connectionFactory" ref="artemisConnectionFactory"/>
+  </bean>
+
+  <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+    <property name="connectionFactory" ref="pooledConnectionFactory"/>
+  </bean>
+
+
+<!-- ================== Перечень маршрутов =========================== -->
+<!--  разбиение по типам документов-->
+  <bean id="RouteRequestForESB" class="org.app.separators.RouteRequestForESB"></bean>
+<!--  Преобразование документов-->
+  <bean id="RequestForESB" class="org.app.documents.RequestForESB"></bean>
+
+<!-- ================== контейнер маршрутов =========================== -->
+  <camelContext id="TestKIS" xmlns="http://camel.apache.org/schema/blueprint">
+    <routeBuilder ref="RouteRequestForESB" />
+    <routeBuilder ref="RequestForESB" />
+  </camelContext>
+
+
+</blueprint>

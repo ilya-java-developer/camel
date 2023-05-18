@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1684335409435
+Build-Jdk-Spec: 17
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint-bean.xml
+Bundle-ManifestVersion: 2
+Bundle-Name: A Camel Blueprint Route
+Bundle-SymbolicName: org.example.osgi2
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin 5.1.8
+Export-Package: org.app.documents;uses:="org.apache.camel.builder";versi
+ on="1.0.0",org.app.processors;uses:="org.apache.camel";version="1.0.0",
+ org.app.routing;version="1.0.0",org.app.separators;uses:="org.apache.ca
+ mel.builder";version="1.0.0",org.app;uses:="org.app.routing";version="1
+ .0.0"
+Import-Package: com.google.gson;version="[2.9,3)",java.io,java.lang,java
+ .lang.invoke,java.nio.file,java.util,org.apache.activemq.artemis.jms.cl
+ ient,org.apache.camel;version="[3.18,4)",org.apache.camel.builder;versi
+ on="[3.18,4)",org.apache.camel.component.jms,org.apache.camel.component
+ .xquery;version="[3.18,4)",org.apache.camel.model;version="[3.18,4)",or
+ g.app,org.app.processors,org.app.routing,org.messaginghub.pooled.jms,or
+ g.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=11))"
+Tool: Bnd-6.3.1.202206071316
