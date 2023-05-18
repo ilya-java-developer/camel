@@ -1,0 +1,14 @@
+<contract_msg>
+      <route_1>
+        {//doc/route/text()}
+      </route_1>
+      <main_1>
+        {//doc/main/text()}
+      </main_1>
+      <text>
+        {//doc/text/text()}
+      </text>
+      <value>
+        {//doc/value/text()}
+      </value>
+</contract_msg>

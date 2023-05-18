@@ -1,0 +1,14 @@
+<znp_msg>
+      <route_1>
+        {//value/route/text()}
+      </route_1>
+      <main_1>
+        {//value/main/text()}
+      </main_1>
+      <text>
+        {//value/text/text()}
+      </text>
+      <value>
+        {//value/value/text()}
+      </value>
+</znp_msg>

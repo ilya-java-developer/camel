@@ -1,0 +1,2 @@
+[{"name":"Contract", "version": "0", "endpoints": [{"name":"first", "queue":"jms:1.queue"},{"name":"second", "queue":"jms:2.queue"}]},
+  {"name": "znp", "version": "0", "endpoints": [{"name":"third", "queue":"jms:3.queue"},{"name":"fourth", "queue":"jms:4.queue"}]}]
